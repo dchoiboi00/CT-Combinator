@@ -47,7 +47,7 @@ const workSans = localFont({
 })
 
 export const metadata: Metadata = {
-  title: "YC Directory",
+  title: "Cornell Tech Combinator",
   description: "Pitch and Find Co-founders",
 };
 
