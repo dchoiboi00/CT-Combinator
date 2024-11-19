@@ -5,6 +5,9 @@ import Image from "next/image";
 import Link from 'next/link';
 import { notFound } from "next/navigation";
 import React from "react";
+import markdownit from 'markdown-it';
+
+const md = markdownit();
 
 export const experimental_ppr = true;
 
@@ -16,6 +19,9 @@ const Page = async ( { params }: { params: Promise<{ id: string}>}) => {
     if (!post) {
         return notFound();
     }
+
+    const parsedContent = md.render(post?.pitch || "");
+
     return (
     <>
         <section className="pink_container !min-h-[230px]">
@@ -54,7 +60,20 @@ const Page = async ( { params }: { params: Promise<{ id: string}>}) => {
                 <h3 className="text-30-bold">
                     Pitch Details
                 </h3>
+                {parsedContent ? (
+                    <article className="prose max-w-4xl font-works-sans break-all"
+                        dangerouslySetInnerHTML={{ __html: parsedContent }}
+                    />
+                ) : (
+                    <p className="no-result">
+                        No details provided.
+                    </p>
+                )}
             </div>
+
+            <hr className="divider"/>
+
+            { /* TODO: EDITOR SELECTED STARTUPS */}
         </section>
     </>
     );
